@@ -5,8 +5,9 @@ namespace Gameplay.Player
     public interface IPlayerController
     {
         void Initialize(Transform gameplayParent);
-        void Move(MovementDirection direction);
-        void Move(Vector2 direction);
+        void Idle();
+        void Move(float xValue);
+        void Jump();
         void SetActive(bool active);
     }
 }

@@ -38,22 +38,17 @@ namespace Gameplay
             SubscribeToEvents();
         }
 
-        private void OnNextLevelStarted()
-        {
-            _levelManager.LoadNextLevel();
-            Play();
-        }
-
         private void SubscribeToEvents()
         {
-            _disposableMessage = _messageBroker.Receive<NextLevelMessage>().Subscribe(message =>
+            _disposableMessage = _messageBroker.Receive<PlayGameMessage>().Subscribe(message =>
             {
-                OnNextLevelStarted();
+                Play();
             });
         }
 
         public void Play()
         {
+            Debug.Log("Play Game Message");
             _playerController.SetActive(true);
             _inputManager.SetActive(true);
         }

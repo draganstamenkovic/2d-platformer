@@ -18,6 +18,14 @@ namespace Gameplay.Player
         private PlayerView _playerView;
         
         private Vector3 _startPosition;
+        
+        private bool _isGrounded;
+        private bool _isJumping;
+        private bool _isIdle;
+        
+        private float _lastGroundedTime;
+        
+        
         public PlayerController(IObjectResolver objectResolver)
         {
             _objectResolver = objectResolver;
@@ -25,34 +33,41 @@ namespace Gameplay.Player
         
         public void Initialize(Transform gameplayParent)
         {
-            var activePlayerSkinId = "";
-            var player = _objectResolver.Instantiate(_playerConfig
-                .GetActivePlayerSkin(activePlayerSkinId), gameplayParent);
+            var player = _objectResolver.Instantiate(_playerConfig.playerPrefab, gameplayParent);
             player.SetActive(false);
-            var positionY = -_cameraManager.GetOrthographicSize()
-                            + player.transform.localScale.y 
-                            + _playerConfig.offsetPositionY;
-            _startPosition = new Vector3(0,positionY,0);
-            player.transform.position = _startPosition;
-
             _playerView = player.GetComponent<PlayerView>();
+            _playerView.OnCollision = OnCollisionEnter;
         }
-
-        public void Move(MovementDirection direction)
+        private void OnCollisionEnter(Collision2D collision)
         {
-            var velocity = direction switch
+            if (collision.gameObject.tag.Equals("Ground"))
             {
-                MovementDirection.Left => new Vector2(-_playerConfig.speed, 0),
-                MovementDirection.Right => new Vector2(_playerConfig.speed, 0),
-                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
-            };
+                _isGrounded = true;
+            }
+        }
+        public void Idle()
+        {
+            if (_isIdle) return;
 
-            _playerView.Rigidbody.linearVelocity = velocity;
+            _isIdle = true;
+            _playerView.animator.SetBool("Running", false);
+        }
+        public void Move(float xValue)
+        {
+            _isIdle = false;
+            var velocity = new Vector2(xValue * _playerConfig.moveSpeed, _playerView.rigidBody.linearVelocity.y);
+            _playerView.rigidBody.linearVelocity = velocity;
+            _playerView.animator.SetBool("Running", true);
         }
 
-        public void Move(Vector2 direction)
+        public void Jump()
         {
-            // TODO: Implement missing logic here
+            if (!_isGrounded) return;
+            
+            _playerView.animator.SetBool("Idle", true);
+
+            _isGrounded = false;
+            _playerView.rigidBody.AddForce(new Vector2(0, _playerConfig.jumpForce), ForceMode2D.Force);
         }
 
         public void SetActive(bool active)
@@ -60,12 +75,12 @@ namespace Gameplay.Player
             _playerView.gameObject.SetActive(active);
             if (active)
             {
-                _playerView.Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                _playerView.rigidBody.bodyType = RigidbodyType2D.Dynamic;
             }
             else
             {
-                _playerView.Rigidbody.bodyType = RigidbodyType2D.Kinematic;
-                _playerView.Rigidbody.linearVelocity = Vector2.zero;
+                _playerView.rigidBody.bodyType = RigidbodyType2D.Kinematic;
+                _playerView.rigidBody.linearVelocity = Vector2.zero;
                 _playerView.transform.localPosition = _startPosition;
             }
         }

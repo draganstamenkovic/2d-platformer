@@ -1,13 +1,20 @@
+using System;
 using UnityEngine;
 
 namespace Gameplay.Player
 {
     public class PlayerView : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D _rigidbody;
-        [SerializeField] private Transform _cannonTransform;
+        public Rigidbody2D rigidBody;
+        public Animator animator;
         
-        public Rigidbody2D Rigidbody => _rigidbody;
-        public Transform CannonTransform => _cannonTransform;
+        [Header("Ground Detection")]
+        public Transform groundCheck;
+        
+        public Action<Collision2D> OnCollision;
+        public void OnCollisionEnter2D(Collision2D other)
+        {
+            OnCollision?.Invoke(other);
+        }
     }
 }

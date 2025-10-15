@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d330c8882d654eb5bbe8c9cced414c3f, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  playerSkins: []
-  startPosition: {x: 0, y: 0, z: 0}
-  speed: 5
-  offsetPositionY: 0.5
+  playerPrefab: {fileID: 6261274542559814390, guid: 4daedd419dd9fcb40883b202ef5185ec, type: 3}
+  moveSpeed: 10
+  jumpForce: 2000
+  airControlFactor: 0.8
+  jumpBufferTime: 0.1
+  coyoteTime: 0.1
+  jumpCutMultiplier: 0.5
+  groundCheckRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0

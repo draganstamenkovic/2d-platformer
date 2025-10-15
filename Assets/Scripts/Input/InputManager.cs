@@ -1,64 +1,75 @@
-using Configs;
 using Gameplay.Player;
-using Helpers.RuntimeInfo;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using VContainer;
 
 namespace Input
 {
     public class InputManager : MonoBehaviour
     {
-        [Inject] private readonly IRuntimeInformation _runtimeInformation;
-        [SerializeField] private InputConfig _inputConfig;
         private IPlayerController _playerController;
-        private bool _isActive;
         
+        private float _moveValue;
+        private bool _isActive;
+
+        private InputAction _moveAction;
+        private InputAction _jumpAction;
+
+        private bool _jumpPressed;
+        private bool _jumpConsumed;
         public void Initialize(IPlayerController playerController)
         {
             _playerController = playerController;
-            if(_runtimeInformation.OSPlatform == RuntimeOSPlatform.Editor)
-                InitializePCInput();
-            else
-                InitializeMobileInput();
-        }
-
-        private void InitializeMobileInput()
-        {
-            // TODO: Add missing logic here
-        }
-
-        private void InitializePCInput()
-        {
-            // TODO: Add missing logic here
+            _moveAction = InputSystem.actions.FindAction("Move");
+            _jumpAction = InputSystem.actions.FindAction("Jump");
         }
 
         public void SetActive(bool value)
         {
-            if (_runtimeInformation.OSPlatform == RuntimeOSPlatform.Editor)
+            if (value)
             {
-                // TODO: Add logic for Editor
+                _jumpAction.started += OnJumpStarted;
+                _jumpAction.canceled += OnJumpCanceled;
             }
             else
             {
-                // TODO: Add input logic for mobile platforms
+                _jumpAction.started -= OnJumpStarted;
+                _jumpAction.canceled -= OnJumpCanceled;
             }
-
             _isActive = value;
+        }
+
+        private void OnJumpCanceled(InputAction.CallbackContext obj)
+        {
+            _jumpPressed = false;
+        }
+
+        private void OnJumpStarted(InputAction.CallbackContext obj)
+        {
+            _jumpPressed = true;
+            _jumpConsumed = false;
         }
 
         private void Update()
         {
             if (!_isActive) return;
-            if (_runtimeInformation.OSPlatform == RuntimeOSPlatform.Editor)
+            
+            if(_moveAction.IsPressed())
+                _moveValue = _moveAction.ReadValue<Vector2>().x;
+            if(!_moveAction.IsPressed())
+                _playerController.Idle();
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_isActive) return;
+
+            if(_moveAction.IsPressed())
+                _playerController.Move(_moveValue);
+
+            if (_jumpPressed && !_jumpConsumed)
             {
-                var moveValue = new Vector2();
-                _playerController.Move(moveValue);
-            }
-            else
-            {
-                // TODO: Add touch input
+                _playerController.Jump();
+                _jumpConsumed = true;
             }
         }
     }

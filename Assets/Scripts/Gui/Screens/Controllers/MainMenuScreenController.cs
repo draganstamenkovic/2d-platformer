@@ -7,7 +7,6 @@ namespace Gui.Screens.Controllers
 {
     public class MainMenuScreenController : IScreenController
     {
-        [Inject] private IPopupManager _popupManager;
         [Inject] private ISaveManager _saveManager;
         private IScreenManager _screenManager;
         
@@ -23,17 +22,7 @@ namespace Gui.Screens.Controllers
         {
             _screenManager = screenManager;
             _view.OnShow = RegisterListeners;
-            _view.OnShown = ShowOffer;
             _view.OnHidden = RemoveListeners;
-        }
-
-        private void ShowOffer()
-        {
-            if (_promotionPopupCounter == 0)
-            {
-                _popupManager.ShowPopupScreen(PopupIds.PromotionPopup);
-                _promotionPopupCounter++;
-            }
         }
 
         private void RegisterListeners()
