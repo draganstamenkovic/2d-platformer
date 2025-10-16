@@ -9,6 +9,8 @@ namespace Configs
     {
         [Header("Player")]
         public GameObject playerPrefab;
+        public GameObject onLandParticle;
+        
         [Header("Movement Settings")]
         public float moveSpeed = 5f;
         public float jumpForce = 10f;
