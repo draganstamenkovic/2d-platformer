@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Configs
 {
@@ -17,6 +18,10 @@ namespace Configs
         public float jumpBufferTime = 0.1f;
         public float coyoteTime = 0.1f;
         public float jumpCutMultiplier = 0.5f;
+        
+        [Header("Gravity Settings")]
+        public float defaultGravity = 8f;
+        public float afterJumpGravity = 12f;
         
         [Header("Ground Detection")]
         public float groundCheckRadius = 0.2f;

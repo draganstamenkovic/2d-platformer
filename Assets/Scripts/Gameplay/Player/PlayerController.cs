@@ -1,4 +1,3 @@
-using System;
 using Audio.Managers;
 using Cameras;
 using Configs;
@@ -25,7 +24,6 @@ namespace Gameplay.Player
         
         private float _lastGroundedTime;
         
-        
         public PlayerController(IObjectResolver objectResolver)
         {
             _objectResolver = objectResolver;
@@ -37,12 +35,15 @@ namespace Gameplay.Player
             player.SetActive(false);
             _playerView = player.GetComponent<PlayerView>();
             _playerView.OnCollision = OnCollisionEnter;
+
+            _playerView.rigidBody.gravityScale = _playerConfig.defaultGravity;
         }
         private void OnCollisionEnter(Collision2D collision)
         {
             if (collision.gameObject.tag.Equals("Ground"))
             {
                 _isGrounded = true;
+                _isJumping = false;
             }
         }
         public void Idle()
@@ -64,9 +65,10 @@ namespace Gameplay.Player
         {
             if (!_isGrounded) return;
             
+            _isGrounded = false;
+            _isJumping = true;
             _playerView.animator.SetBool("Idle", true);
 
-            _isGrounded = false;
             _playerView.rigidBody.AddForce(new Vector2(0, _playerConfig.jumpForce), ForceMode2D.Force);
         }
 
@@ -75,13 +77,27 @@ namespace Gameplay.Player
             _playerView.gameObject.SetActive(active);
             if (active)
             {
+                _playerView.OnUpdate = Update;
                 _playerView.rigidBody.bodyType = RigidbodyType2D.Dynamic;
             }
             else
             {
+                _playerView.OnUpdate = null;
                 _playerView.rigidBody.bodyType = RigidbodyType2D.Kinematic;
                 _playerView.rigidBody.linearVelocity = Vector2.zero;
                 _playerView.transform.localPosition = _startPosition;
+            }
+        }
+
+        private void Update()
+        {
+            if (_isJumping && _playerView.rigidBody.linearVelocityY <= 0)
+            {
+                _playerView.rigidBody.gravityScale = _playerConfig.afterJumpGravity;
+            }
+            else if(!_isJumping)
+            {
+                _playerView.rigidBody.gravityScale = _playerConfig.defaultGravity;
             }
         }
     }

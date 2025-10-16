@@ -12,9 +12,15 @@ namespace Gameplay.Player
         public Transform groundCheck;
         
         public Action<Collision2D> OnCollision;
-        public void OnCollisionEnter2D(Collision2D other)
+        public Action OnUpdate;
+        private void OnCollisionEnter2D(Collision2D other)
         {
             OnCollision?.Invoke(other);
+        }
+
+        void Update()
+        {
+            OnUpdate?.Invoke();
         }
     }
 }
