@@ -6,5 +6,11 @@ namespace Gameplay.Background
         {
             
         }
+
+
+        private void InstantiateBackground()
+        {
+            
+        }
     }
 }

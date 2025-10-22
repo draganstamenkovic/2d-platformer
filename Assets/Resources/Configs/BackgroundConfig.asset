@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df841cc6554f4582a960ef5f8fc2f1b0, type: 3}
   m_Name: BackgroundConfig
   m_EditorClassIdentifier: Assembly-CSharp::Configs.BackgroundConfig
-  skyImage: {fileID: 21300000, guid: 8e160a2a620644cd6afef9119dad1093, type: 3}
-  forestImage: {fileID: 21300000, guid: de41d366c687a46beb6a9acaa88c12db, type: 3}
+  skyBackground: {fileID: 2047549884606843442, guid: edcfbb227304b234ea33ea0263a5cda8, type: 3}
+  forestBackground: {fileID: 8854753239141215156, guid: b87b1f3a91138924587d05c03a36ccd9, type: 3}
