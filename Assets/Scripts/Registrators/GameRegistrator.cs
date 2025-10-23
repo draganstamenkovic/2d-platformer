@@ -1,8 +1,10 @@
 using Cameras;
 using Gameplay;
+using Gameplay.Background;
 using Gameplay.Level;
 using Gameplay.Player;
 using VContainer;
+using VContainer.Unity;
 
 namespace Registrators
 {
@@ -14,6 +16,7 @@ namespace Registrators
             builder.Register<ICameraManager, CameraManager>(Lifetime.Singleton);
             builder.Register<IPlayerController, PlayerController>(Lifetime.Singleton);
             builder.Register<ILevelManager, LevelManager>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<BackgroundManager>();
         }
     }
 }

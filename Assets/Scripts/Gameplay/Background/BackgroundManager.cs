@@ -1,16 +1,21 @@
+using Configs;
+using UnityEngine;
+using VContainer;
+
 namespace Gameplay.Background
 {
-    public class BackgroundManager : IBackgroundManager
+    public class BackgroundManager : MonoBehaviour
     {
-        public void Initialize()
-        {
-            
-        }
+        [Inject] private readonly BackgroundConfig _config;
 
-
-        private void InstantiateBackground()
+        [SerializeField] private Transform forestTransform;
+        [SerializeField] private Transform skyTransform;
+        private Vector3 _cameraPosition;
+        /*
+        private void Update()
         {
-            
+            skyTransform.transform.position = _cameraPosition;
         }
+        */
     }
 }
