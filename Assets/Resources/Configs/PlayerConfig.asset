@@ -26,3 +26,4 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  topCheckRadius: 1.5
