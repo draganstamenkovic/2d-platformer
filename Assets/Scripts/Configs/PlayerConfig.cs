@@ -26,9 +26,8 @@ namespace Configs
         public float afterJumpGravity = 12f;
         
         [Header("Ground Detection")]
-        public float groundCheckRadius = 0.2f;
+        public float groundCheckRadius = 0.1f;
         public LayerMask groundLayer;
-        public float topCheckRadius = 0.5f;
 
         public GameObject GetActivePlayerSkin(string skinId)
         {

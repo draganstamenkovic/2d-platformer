@@ -107,12 +107,10 @@ namespace Gameplay.Player
             if (_isGrounded && !wasGrounded)
             {
                 _isJumping = false;
-                _playerView.playerCollider.isTrigger = false;
-
+                
                 if (Time.time > _lastParticleTime + 0.2f)
                 {
                     _playerView.animator.SetBool(AnimationIds.Jump, false);
-                    _playerView.animator.SetBool(AnimationIds.Idle, true);
                     _landParticle.transform.position = _playerView.dustParticleTransform.position;
                     _landParticle.Play();
                     _lastParticleTime = Time.time;
@@ -126,32 +124,12 @@ namespace Gameplay.Player
 
             if (_isJumping)
             {
-                OverlappingWithTopPlatform();
-
                 if (_playerView.rigidBody.linearVelocityY <= 0)
                     _playerView.rigidBody.gravityScale = _playerConfig.afterJumpGravity;
             }
             else
             {
                 _playerView.rigidBody.gravityScale = _playerConfig.defaultGravity;
-            }
-        }
-
-        private void OverlappingWithTopPlatform()
-        {
-            var overlappingWithTopPlatform = Physics2D.OverlapCircle(_playerView.topCheck.position, 
-                _playerConfig.topCheckRadius,
-                _playerConfig.groundLayer);
-    
-            // Only pass through if moving upward and overlapping
-            if (overlappingWithTopPlatform && _playerView.rigidBody.linearVelocity.y > 0)
-            {
-                _playerView.playerCollider.isTrigger = true;
-            }
-            else if (!overlappingWithTopPlatform || _playerView.rigidBody.linearVelocity.y <= 0)
-            {
-                // Reset when no longer overlapping OR when starting to fall
-                _playerView.playerCollider.isTrigger = false;
             }
         }
     }
