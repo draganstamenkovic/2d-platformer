@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Configs
 {
@@ -13,13 +11,10 @@ namespace Configs
         
         [Header("Movement Settings")]
         public float moveSpeed = 5f;
-        public float airControlFactor = 0.8f;
         
         [Header("Jump Settings")]
         public float jumpForce = 10f;
         public float jumpBufferTime = 0.1f;
-        public float coyoteTime = 0.1f;
-        public float jumpCutMultiplier = 0.5f;
         
         [Header("Gravity Settings")]
         public float defaultGravity = 8f;
@@ -28,17 +23,5 @@ namespace Configs
         [Header("Ground Detection")]
         public float groundCheckRadius = 0.1f;
         public LayerMask groundLayer;
-
-        public GameObject GetActivePlayerSkin(string skinId)
-        {
-            return new GameObject("Player");
-        }
-    }
-
-    [Serializable]
-    public class Skin
-    {
-        public string Id;
-        public GameObject Prefab;
     }
 }
