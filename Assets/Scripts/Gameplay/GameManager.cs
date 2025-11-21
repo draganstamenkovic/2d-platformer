@@ -103,10 +103,14 @@ namespace Gameplay
 
             var boundsSize = 0.1f;
             
+            var distance = -camera.transform.position.z;
+
+            var leftPos = camera.ViewportToWorldPoint(new Vector3(0f, 0.5f, distance));
+            
             var leftBound = new GameObject("LeftBound");
             leftBound.transform.SetParent(bounds.transform);
             leftBound.transform.localScale = new Vector3(boundsSize, 20f, boundsSize);
-            leftBound.transform.localPosition = new Vector3(-camera.orthographicSize * 2 - boundsSize / 2, 10f - camera.orthographicSize, 0);
+            leftBound.transform.localPosition = leftPos;
             leftBound.AddComponent<BoxCollider2D>();
         }
 
