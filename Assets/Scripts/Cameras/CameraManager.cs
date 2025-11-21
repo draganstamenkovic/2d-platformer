@@ -1,12 +1,16 @@
+using Unity.Cinemachine;
 using UnityEngine;
 namespace Cameras
 {
     public class CameraManager : ICameraManager
     {
         private Camera _mainCamera;
-        public void Initialize()
+        private CinemachineCamera _cinemachineCamera;
+        public void Initialize(Transform playerTransform)
         {
             _mainCamera = Camera.main;
+            _cinemachineCamera = _mainCamera.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineCamera;
+            _cinemachineCamera.Follow = playerTransform;
         }
 
         public Camera GetMainCamera()

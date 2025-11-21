@@ -4,7 +4,7 @@ namespace Cameras
 {
     public interface ICameraManager
     {
-        void Initialize();
+        void Initialize(Transform playerTransform);
         Camera GetMainCamera();
         Vector3 GetCameraPosition();
         float GetCameraWidth();

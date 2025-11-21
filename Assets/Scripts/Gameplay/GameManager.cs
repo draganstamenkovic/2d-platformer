@@ -30,9 +30,9 @@ namespace Gameplay
         public void Initialize()
         {
             CreateGameplayParent();
-            _cameraManager.Initialize();
-            _loadManager.Initialize();
             _playerController.Initialize(_gameplayParent);
+            _cameraManager.Initialize(_playerController.GetTransform());
+            _loadManager.Initialize();
             _inputManager.Initialize(_playerController);
             _levelManager.Initialize();
             CreateGameBounds();
