@@ -1,6 +1,7 @@
 using Data.Save;
 using Gui.Popups;
 using Gui.Screens.Views;
+using UnityEngine;
 using VContainer;
 
 namespace Gui.Screens.Controllers
@@ -27,14 +28,14 @@ namespace Gui.Screens.Controllers
 
         private void RegisterListeners()
         {
-            _view.PlayButton.onClick.AddListener(OnPlayButtonClick);
-            _view.SettingsButton.onClick.AddListener(OnSettingsButtonClick);
-            _view.SaveButton.onClick.AddListener(OnSaveButtonClick);
+            _view.playButton.onClick.AddListener(OnPlayButtonClick);
+            _view.settingsButton.onClick.AddListener(OnSettingsButtonClick);
+            _view.quitButton.onClick.AddListener(OnQuitButtonClick);
         }
 
-        private void OnSaveButtonClick()
+        private void OnQuitButtonClick()
         {
-            _saveManager.Save();
+            Application.Quit();
         }
 
         private void OnSettingsButtonClick()
@@ -49,9 +50,9 @@ namespace Gui.Screens.Controllers
 
         private void RemoveListeners()
         {
-            _view.PlayButton.onClick.RemoveListener(OnPlayButtonClick);
-            _view.SettingsButton.onClick.RemoveListener(OnSettingsButtonClick);
-            _view.SaveButton.onClick.RemoveListener(OnSaveButtonClick);
+            _view.playButton.onClick.RemoveListener(OnPlayButtonClick);
+            _view.settingsButton.onClick.RemoveListener(OnSettingsButtonClick);
+            _view.quitButton.onClick.RemoveListener(OnQuitButtonClick);
         }
     }
 }
