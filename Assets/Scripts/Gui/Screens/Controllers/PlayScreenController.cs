@@ -10,7 +10,6 @@ namespace Gui.Screens.Controllers
     {
         [Inject] private readonly IMessageBroker _messageBroker;
         private PlayScreenView _view;
-        private IScreenManager _screenManager;
         public string ID => GuiScreenIds.PlayScreen;
 
         public void SetView(IScreenView view)
@@ -20,7 +19,6 @@ namespace Gui.Screens.Controllers
 
         public void Initialize(IScreenManager screenManager)
         {
-           _screenManager = screenManager;
             _view.OnShow = () => 
             { 
                 _messageBroker.Publish(new PlayGameMessage());
@@ -31,10 +29,17 @@ namespace Gui.Screens.Controllers
 
         private void RegisterListeners()
         {
+            _view.pauseButton.onClick.AddListener(OnPauseButtonClick);
         }
 
         private void RemoveListeners()
         {
+            _view.pauseButton.onClick.RemoveListener(OnPauseButtonClick);
+        }
+
+        private void OnPauseButtonClick()
+        {
+            _messageBroker.Publish(new PauseGameMessage());
         }
     }
 }
