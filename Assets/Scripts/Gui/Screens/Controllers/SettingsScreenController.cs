@@ -15,18 +15,25 @@ namespace Gui.Screens.Controllers
         }
 
         public void Initialize(IScreenManager screenManager)
-        {
-           _screenManager = screenManager;
+        { 
+            _screenManager = screenManager;
             _view.OnShow = RegisterListeners;
             _view.OnHidden = RemoveListeners;
         }
 
         private void RegisterListeners()
         {
+            _view.backButton.onClick.AddListener(OnBackButtonClick);
         }
 
         private void RemoveListeners()
         {
+            _view.backButton.onClick.RemoveListener(OnBackButtonClick);
+        }
+        
+        private void OnBackButtonClick()
+        {
+            _screenManager.ShowScreen(GuiScreenIds.MainMenuScreen);
         }
     }
 }
