@@ -8,16 +8,16 @@ namespace Configs
     [CreateAssetMenu(fileName = "PopupsConfig", menuName = "Configs/PopupsConfig")]
     public class PopupsConfig : ScriptableObject
     {
-        public float ShowTransitionDuration = 0.35f;
-        public float HideTransitionDuration = 0.15f;
-        public Ease TransitionEase = Ease.OutBack;
-        public List<PopupPrefabData> Popups = new();
+        public float showTransitionDuration = 0.35f;
+        public float hideTransitionDuration = 0.15f;
+        public Ease transitionEase = Ease.OutBack;
+        public List<PopupPrefabData> popups = new();
     }
     
     [Serializable]
     public class PopupPrefabData
     {
-        public string Name;
-        public RectTransform PopupPrefab;
+        public string name;
+        public RectTransform popupPrefab;
     }
 }
