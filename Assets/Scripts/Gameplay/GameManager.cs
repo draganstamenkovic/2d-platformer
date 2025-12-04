@@ -46,8 +46,11 @@ namespace Gameplay
             }));
             _disposableMessages.Add(_messageBroker.Receive<PauseGameMessage>().Subscribe(message =>
             {
-                Debug.Log("Pause");
-               // Pause();
+                Debug.Log("Pause: " + message.Paused);
+                if(message.Paused)
+                    Pause();
+                else
+                    Resume();
             }));
         }
 

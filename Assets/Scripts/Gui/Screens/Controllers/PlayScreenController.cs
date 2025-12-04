@@ -1,3 +1,4 @@
+using Gui.Popups;
 using Gui.Screens.Views;
 using Message;
 using Message.Messages;
@@ -39,7 +40,8 @@ namespace Gui.Screens.Controllers
 
         private void OnPauseButtonClick()
         {
-            _messageBroker.Publish(new PauseGameMessage());
+            _messageBroker.Publish(new ShowPopupMessage(PopupIds.PauseMenuPopup));
+            _messageBroker.Publish(new PauseGameMessage(true));
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Registrators
         public static void Register(IContainerBuilder builder)
         {
             builder.Register<ConfirmationPopupController>(Lifetime.Singleton).As<IPopupController>();
-            builder.Register<PromotionPopupController>(Lifetime.Singleton).As<IPopupController>();
             builder.Register<LevelFinishedPopupController>(Lifetime.Singleton).As<IPopupController>();
+            builder.Register<PauseMenuPopupController>(Lifetime.Singleton).As<IPopupController>();
         }
     }
 }
