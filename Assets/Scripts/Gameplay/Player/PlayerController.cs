@@ -1,6 +1,8 @@
 using Audio.Managers;
 using Configs;
 using Gameplay.Enemies;
+using Message;
+using Message.Messages;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,6 +13,7 @@ namespace Gameplay.Player
     {
         [Inject] private PlayerConfig _playerConfig;
         [Inject] private IAudioManager _audioManager;
+        [Inject] private IMessageBroker _messageBroker;
         private readonly IObjectResolver _objectResolver;
 
         private PlayerView _playerView;
@@ -60,9 +63,7 @@ namespace Gameplay.Player
 
             v.x = xValue * _playerConfig.moveSpeed;
 
-            rb.linearVelocity = v;  
-      //      var velocity = new Vector2(xValue * _playerConfig.moveSpeed, _playerView.rigidBody.linearVelocity.y);
-       //     _playerView.rigidBody.linearVelocity = velocity;
+            rb.linearVelocity = v;
             
             if (_isJumping) return;
             
@@ -106,7 +107,7 @@ namespace Gameplay.Player
         
         private void CheckGrounded()
         {
-            bool wasGrounded = _isGrounded;
+            var wasGrounded = _isGrounded;
             _isGrounded = Physics2D.OverlapCircle(_playerView.groundCheck.position, 
                 _playerConfig.groundCheckRadius,
                 _playerConfig.groundLayer);
@@ -140,27 +141,34 @@ namespace Gameplay.Player
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collision.collider.CompareTag(TagIds.Enemy))
-                return;
-
-            var contact = collision.GetContact(0);
-            var normal = contact.normal;
-            
-            if (normal.y > _playerConfig.topHitThreshold)
+            if (collision.collider.CompareTag(TagIds.Collectable))
             {
-                collision.gameObject.GetComponent<Enemy>().Die();
-
-                _playerView.rigidBody.linearVelocity = new Vector2(_playerView.rigidBody.linearVelocity.x, _playerConfig.jumpForceOnKill);
+                var collectable = collision.gameObject.GetComponent<CollectableItem>();
+                _messageBroker.Publish(new CollectedItemMessage(collectable.itemType));
             }
-            else
+            else if (collision.collider.CompareTag(TagIds.Enemy))
             {
-                Die();
+
+                var contact = collision.GetContact(0);
+                var normal = contact.normal;
+
+                if (normal.y > _playerConfig.topHitThreshold)
+                {
+                    collision.gameObject.GetComponent<Enemy>().Die();
+
+                    _playerView.rigidBody.linearVelocity = new Vector2(_playerView.rigidBody.linearVelocity.x,
+                        _playerConfig.jumpForceOnKill);
+                }
+                else
+                {
+                    Die();
+                }
             }
         }
 
         private void Die()
         {
-            
+            _messageBroker.Publish(new GameOverMessage());
         }
     }
 }
