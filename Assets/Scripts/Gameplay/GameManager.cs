@@ -21,9 +21,10 @@ namespace Gameplay
         [Inject] private readonly ILoadManager _loadManager;
         [Inject] private readonly IPlayerController _playerController;
         [Inject] private readonly ILevelManager _levelManager;
+        [Inject] private readonly IScoreManager _scoreManager;
 
         [Inject] private readonly IMessageBroker _messageBroker;
-        private List<IDisposable> _disposableMessages = new();
+        private readonly List<IDisposable> _disposableMessages = new();
         
         private Transform _gameplayParent;
         private bool _isPaused;
@@ -35,6 +36,7 @@ namespace Gameplay
             _loadManager.Initialize();
             _inputManager.Initialize(_playerController);
             _levelManager.Initialize();
+            _scoreManager.Initialize();
             SubscribeToEvents();
         }
 
@@ -46,7 +48,6 @@ namespace Gameplay
             }));
             _disposableMessages.Add(_messageBroker.Receive<PauseGameMessage>().Subscribe(message =>
             {
-                Debug.Log("Pause: " + message.Paused);
                 if(message.Paused)
                     Pause();
                 else

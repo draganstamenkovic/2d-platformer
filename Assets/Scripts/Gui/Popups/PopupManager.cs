@@ -19,7 +19,7 @@ namespace Gui.Popups
         [Inject] private IEnumerable<IPopupController> _controllers;
         [Inject] private readonly IMessageBroker _messageBroker;
         
-        private IObjectResolver _objectResolver;
+        private readonly IObjectResolver _objectResolver;
         private readonly Dictionary<string, RectTransform> _popups = new();
         private readonly Dictionary<string, RectTransform> _spawnedPopups = new();
         private readonly Dictionary<string, IPopupView> _spawnedPopupViews = new();
