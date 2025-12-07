@@ -1,11 +1,15 @@
+using Gameplay.Collectables;
+
 namespace Message.Messages
 {
     public class CollectedItemMessage
     {
         public readonly CollectedItem Item;
-        public CollectedItemMessage(CollectedItem item)
+        public readonly CollectableItem Collectable;
+        public CollectedItemMessage(CollectableItem collectableItem)
         {
-            Item = item;
+            Collectable = collectableItem;
+            Item = collectableItem.itemType;
         }
     }
     

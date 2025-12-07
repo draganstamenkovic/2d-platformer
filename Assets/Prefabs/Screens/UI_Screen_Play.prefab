@@ -280,7 +280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4180202385015441053, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_text
-      value: x 100
+      value: x 0
       objectReference: {fileID: 0}
     - target: {fileID: 4180202385015441053, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_fontSize
@@ -530,6 +530,8 @@ MonoBehaviour:
   pauseButton: {fileID: 7976357028500371269}
   gemsCountText: {fileID: 1083420311387759255}
   cherriesCountText: {fileID: 4826906803279579179}
+  gemsRectTransform: {fileID: 2926042356059000678}
+  cherriesRectTransform: {fileID: 3528130595501189925}
 --- !u!224 &5678946982124477840 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1452098545857643400, guid: 0082e3865967e52449321de3884075c9, type: 3}
@@ -855,7 +857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4180202385015441053, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_text
-      value: x 100
+      value: x 0
       objectReference: {fileID: 0}
     - target: {fileID: 4180202385015441053, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_fontSize
