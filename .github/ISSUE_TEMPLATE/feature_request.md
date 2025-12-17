@@ -7,8 +7,8 @@ assignees: draganstamenkovic
 
 ---
 
-**Description of problem**
+**Problem**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-**Description of solution**
+**Solution**
 A clear and concise description of what you want to happen.
