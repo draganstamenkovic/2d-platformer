@@ -8,5 +8,6 @@ namespace Gameplay
         void Resume();
         void Quit();
         void Stop();
+        void Restart();
     }
 }

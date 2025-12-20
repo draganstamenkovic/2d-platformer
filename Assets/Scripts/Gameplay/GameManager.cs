@@ -86,7 +86,12 @@ namespace Gameplay
             _playerController.SetActive(false);
             _inputManager.SetActive(false);
         }
-        
+
+        public void Restart()
+        {
+            Debug.Log("Restart");
+        }
+
         public void Quit()
         {
             Stop();
