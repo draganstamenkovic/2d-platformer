@@ -243,7 +243,7 @@ MonoBehaviour:
   enemyTransform: {fileID: 5164892578613224427}
   startPointTransform: {fileID: 3586546302143925832}
   endPointTransform: {fileID: 3684446961444693279}
-  enemyMoveDuration: 3
+  enemyMoveDuration: 2.5
 --- !u!1 &9061386502084019870
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ namespace Gameplay
         public void Initialize()
         {
             _playerController.Initialize(_gameplayParent);
-            _cameraManager.Initialize(_playerController.GetTransform());
+            _cameraManager.Initialize();
             _loadManager.Initialize();
             _inputManager.Initialize(_playerController);
             _levelManager.Initialize();
@@ -60,6 +60,7 @@ namespace Gameplay
         {
             _playerController.SetActive(true);
             _inputManager.SetActive(true);
+            _cameraManager.FollowPlayer(_playerController.GetTransform());
         }
 
         public void Pause()

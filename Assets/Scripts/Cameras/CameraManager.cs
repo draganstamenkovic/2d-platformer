@@ -5,12 +5,27 @@ namespace Cameras
     public class CameraManager : ICameraManager
     {
         private Camera _mainCamera;
+        private CinemachineBrain _cinemachineBrain;
         private CinemachineCamera _cinemachineCamera;
-        public void Initialize(Transform playerTransform)
+        public void Initialize()
         {
             _mainCamera = Camera.main;
-            _cinemachineCamera = _mainCamera.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineCamera;
+            
+            _cinemachineBrain = _mainCamera.GetComponent<CinemachineBrain>();
+            _cinemachineCamera = _cinemachineBrain.ActiveVirtualCamera as CinemachineCamera;
+            
+        }
+
+        public void FollowPlayer(Transform playerTransform)
+        {
             _cinemachineCamera.Follow = playerTransform;
+            _cinemachineCamera.LookAt = playerTransform;
+        }
+
+        public void UnfollowPlayer()
+        {
+            _cinemachineCamera.Follow = null;
+            _cinemachineCamera.LookAt = null;
         }
 
         public Camera GetMainCamera()
