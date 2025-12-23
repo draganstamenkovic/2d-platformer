@@ -49,10 +49,16 @@ namespace Gameplay
             }));
             _disposableMessages.Add(_messageBroker.Receive<PauseGameMessage>().Subscribe(message =>
             {
-                if(message.Paused)
+                if (message.Paused)
+                {
                     Pause();
+                    _inputManager.SetActive(false);
+                }
                 else
+                {
                     Resume();
+                    _inputManager.SetActive(true);
+                }
             }));
         }
 
