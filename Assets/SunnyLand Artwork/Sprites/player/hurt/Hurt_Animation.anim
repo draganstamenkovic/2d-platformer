@@ -72,11 +72,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.083333336
-    functionName: OnPlayerDied()
-    data: 
-    objectReferenceParameter: {fileID: 6261274542559814390, guid: 4daedd419dd9fcb40883b202ef5185ec, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

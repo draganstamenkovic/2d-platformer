@@ -145,12 +145,19 @@ namespace Gameplay.Player
                 _playerView.rigidBody.gravityScale = _playerConfig.defaultGravity;
             }
         }
-        private void OnTriggerEnter2D(Collider2D collectableCollider)
+        private void OnTriggerEnter2D(Collider2D triggerCollider)
         {
-            if (collectableCollider.CompareTag(TagIds.Collectable))
+            if (triggerCollider.CompareTag(TagIds.Collectable))
             {
-                var collectable = collectableCollider.gameObject.GetComponent<CollectableItem>();
+                var collectable = triggerCollider.gameObject.GetComponent<CollectableItem>();
                 _messageBroker.Publish(new CollectedItemMessage(collectable));
+            }
+
+            if (triggerCollider.CompareTag(TagIds.DeathHole))
+            {
+                _messageBroker.Publish(new PlaySfxMessage(AudioIds.PlayerDied));
+                _messageBroker.Publish(new ShowPopupMessage(PopupIds.GameOverPopup));
+                _messageBroker.Publish(new GameOverMessage());
             }
         }
         private void OnCollisionEnter2D(Collision2D collision)
