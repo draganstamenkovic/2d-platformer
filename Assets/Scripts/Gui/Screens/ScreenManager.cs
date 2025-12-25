@@ -38,10 +38,6 @@ namespace Gui.Screens
         {
             _screenParent = parent;
             _screenBlocker = screenBlocker;
-            _disposableMessage = _messageBroker.Receive<ShowScreenMessage>().Subscribe(message =>
-            {
-                ShowScreen(GuiScreenIds.MainMenuScreen);
-            });
             
             foreach (var screen in _guiScreensConfig.Screens)
             {
@@ -50,6 +46,10 @@ namespace Gui.Screens
                     _screens.Add(screen.Name, screen.Screen);
                 }
             }
+            _disposableMessage = _messageBroker.Receive<ShowScreenMessage>().Subscribe(message =>
+            {
+                ShowScreen(GuiScreenIds.MainMenuScreen);
+            });
         }
 
         public void ShowScreen(string screenName)

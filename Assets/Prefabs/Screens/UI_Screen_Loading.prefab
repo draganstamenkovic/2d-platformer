@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9018724369330294763}
   - component: {fileID: 119537770618174555}
   - component: {fileID: 2950505131180369450}
-  - component: {fileID: 1108605426940995984}
   m_Layer: 0
   m_Name: SpinnerImage
   m_TagString: Untagged
@@ -76,18 +75,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1108605426940995984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119986373038809423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a48fc65acbff9048bffd31a3ea5f7ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1220972938440720672
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b6154e85b54395b29b04c165baff73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingBar: {fileID: 9018724369330294763}
 --- !u!1001 &2232466061169266446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 4180202385015441053, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -2862019220769439431, guid: 9a502f5e7d043604d9a9c64133dfcfca, type: 2}
+      objectReference: {fileID: 4008765845114883707, guid: 255a1c08492086747a48c5b3e5fa5882, type: 2}
     - target: {fileID: 4180202385015441053, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
@@ -247,7 +235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5540598274912170495, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 5540598274912170495, guid: af21e1a49def68644b100e155b267bfc, type: 3}
       propertyPath: m_SizeDelta.y

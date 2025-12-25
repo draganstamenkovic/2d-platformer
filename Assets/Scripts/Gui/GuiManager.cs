@@ -1,7 +1,9 @@
-using Configs;
 using Gui.Popups;
-using Gui.Popups.Builder;
 using Gui.Screens;
+using Message;
+using Message.Messages;
+using R3;
+using TMPro;
 using UnityEngine;
 using VContainer;
 
@@ -11,35 +13,26 @@ namespace Gui
     {
         [Inject] private readonly IScreenManager _screenManager;
         [Inject] private readonly IPopupManager _popupManager;
-        [Inject] private readonly IPopupBuilder _popupBuilder;
-        [Inject] private GuiConfig _guiConfig;
+        [Inject] private readonly IMessageBroker _messageBroker;
 
-        [SerializeField] private Transform _screensContainer;
-        [SerializeField] private Transform _popupsContainer;
+        [SerializeField] private Transform screensContainer;
+        [SerializeField] private Transform popupsContainer;
         
-        [SerializeField] private Transform _spinner;
-        [SerializeField] private GameObject _screenBlocker;
-        private bool _activeSpinner;
+        [SerializeField] private Transform loadingScreen;
+        [SerializeField] private TextMeshProUGUI loadingText;
+        [SerializeField] private GameObject screenBlocker;
+        
         public void Initialize()
         {
-            SetSpinnerActive(true);
-            _screenManager.Initialize(_screensContainer, _screenBlocker);
-            _popupManager.Initialize(_popupsContainer, _screenBlocker);
+            loadingScreen.gameObject.SetActive(true);
+            _screenManager.Initialize(screensContainer, screenBlocker);
+            _popupManager.Initialize(popupsContainer, screenBlocker);
 
-            _screenManager.ShowScreen(GuiScreenIds.MainMenuScreen);
-            SetSpinnerActive(false);
-        }
-
-        public void SetSpinnerActive(bool active)
-        {
-            _activeSpinner = active;
-            _spinner.gameObject.SetActive(active);
-        }
-
-        private void Update()
-        {
-            if(_activeSpinner)
-                _spinner.transform.Rotate(new Vector3(0, 0, _guiConfig.loadingRotateSpeed));
+            _messageBroker.Receive<LoadingMessage>().Subscribe(message =>
+            {
+                loadingText.text = message.Text;
+                loadingScreen.gameObject.SetActive(message.Active);
+            });
         }
     }
 }

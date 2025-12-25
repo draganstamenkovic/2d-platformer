@@ -5,6 +5,7 @@ using Data.Load;
 using Gameplay.Background;
 using Gameplay.Level;
 using Gameplay.Player;
+using Gui.Screens;
 using Input;
 using Message;
 using Message.Messages;
@@ -29,15 +30,35 @@ namespace Gameplay
         
         private bool _isPaused;
         
-        public void Initialize()
+        public async void Initialize()
         {
+            _messageBroker.Publish(new LoadingMessage("Loading player...", true));
+            await Awaitable.WaitForSecondsAsync(0.3f);
             _playerController.Initialize();
+            
+            _messageBroker.Publish(new LoadingMessage("Loading camera...", true));
+            await Awaitable.WaitForSecondsAsync(0.3f);
             _cameraManager.Initialize();
+            
+            _messageBroker.Publish(new LoadingMessage("Loading data...", true));
+            await Awaitable.WaitForSecondsAsync(0.3f);
             _loadManager.Initialize();
+            
+            _messageBroker.Publish(new LoadingMessage("Loading controls...", true));
+            await Awaitable.WaitForSecondsAsync(0.3f);
             _inputManager.Initialize(_playerController);
+            
+            _messageBroker.Publish(new LoadingMessage("Loading levels...", true));
+            await Awaitable.WaitForSecondsAsync(0.3f);
             _levelManager.Initialize();
+            
+            _messageBroker.Publish(new LoadingMessage("Loading backgrounds...", true));
+            await Awaitable.WaitForSecondsAsync(0.3f);
             _backgroundManager.Initialize();
             SubscribeToEvents();
+            
+            _messageBroker.Publish(new LoadingMessage(string.Empty, false));
+            _messageBroker.Publish(new ShowScreenMessage(GuiScreenIds.MainMenuScreen));
         }
 
         private void SubscribeToEvents()

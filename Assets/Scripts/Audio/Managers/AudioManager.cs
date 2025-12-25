@@ -40,6 +40,7 @@ namespace Audio.Managers
             {
                 PlaySfx(message.Id);
             });
+            _messageBroker.Publish(new LoadingMessage("Loading audio...", true));
         }
 
         public void PlaySfx(string sfxId)
