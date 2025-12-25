@@ -39,9 +39,9 @@ namespace Gameplay.Player
         }
         public Transform GetTransform() => _playerView.transform;
 
-        public void Initialize(Transform gameplayParent)
+        public void Initialize()
         {
-            var player = _objectResolver.Instantiate(_playerConfig.playerPrefab, gameplayParent);
+            var player = _objectResolver.Instantiate(_playerConfig.playerPrefab);
             player.SetActive(false);
             _playerView = player.GetComponent<PlayerView>();
 

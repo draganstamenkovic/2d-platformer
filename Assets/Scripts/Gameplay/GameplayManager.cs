@@ -14,7 +14,7 @@ using VContainer;
 
 namespace Gameplay
 {
-    public class GameManager : IGameManager
+    public class GameplayManager : IGameplayManager
     {
         [Inject] private readonly InputManager _inputManager;
         [Inject] private readonly BackgroundManager _backgroundManager;
@@ -27,12 +27,11 @@ namespace Gameplay
         [Inject] private readonly IMessageBroker _messageBroker;
         private readonly List<IDisposable> _disposableMessages = new();
         
-        private Transform _gameplayParent;
         private bool _isPaused;
         
         public void Initialize()
         {
-            _playerController.Initialize(_gameplayParent);
+            _playerController.Initialize();
             _cameraManager.Initialize();
             _loadManager.Initialize();
             _inputManager.Initialize(_playerController);

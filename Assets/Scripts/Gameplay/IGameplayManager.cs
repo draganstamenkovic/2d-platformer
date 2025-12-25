@@ -1,6 +1,6 @@
 namespace Gameplay
 {
-    public interface IGameManager
+    public interface IGameplayManager
     {
         void Initialize();
         void Play();

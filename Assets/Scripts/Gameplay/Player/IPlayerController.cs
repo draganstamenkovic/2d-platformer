@@ -4,7 +4,7 @@ namespace Gameplay.Player
 {
     public interface IPlayerController
     {
-        void Initialize(Transform gameplayParent);
+        void Initialize();
         void Idle();
         void Move(float xValue);
         void Jump();

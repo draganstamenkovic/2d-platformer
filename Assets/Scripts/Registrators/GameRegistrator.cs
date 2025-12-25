@@ -12,7 +12,7 @@ namespace Registrators
     {
         public static void Register(IContainerBuilder builder)
         {
-            builder.Register<IGameManager, GameManager>(Lifetime.Singleton);
+            builder.Register<IGameplayManager, GameplayManager>(Lifetime.Singleton);
             builder.Register<ICameraManager, CameraManager>(Lifetime.Singleton);
             builder.Register<IPlayerController, PlayerController>(Lifetime.Singleton);
             builder.Register<ILevelManager, LevelManager>(Lifetime.Singleton);
