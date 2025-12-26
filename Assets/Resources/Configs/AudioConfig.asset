@@ -16,3 +16,5 @@ MonoBehaviour:
   sfxSounds:
   - id: PlayerDied
     audioClip: {fileID: 8300000, guid: 1865a3ffbf1cd214cba2a4993d721148, type: 3}
+  - id: CollectablePickUp
+    audioClip: {fileID: 8300000, guid: 9c2cddb6766b7b548940e0f9070e783f, type: 3}

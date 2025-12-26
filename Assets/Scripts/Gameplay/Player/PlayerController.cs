@@ -149,6 +149,7 @@ namespace Gameplay.Player
         {
             if (triggerCollider.CompareTag(TagIds.Collectable))
             {
+                _messageBroker.Publish(new PlaySfxMessage(AudioIds.CollectablePickUp));
                 var collectable = triggerCollider.gameObject.GetComponent<CollectableItem>();
                 _messageBroker.Publish(new CollectedItemMessage(collectable));
             }
