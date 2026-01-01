@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Gameplay.Player
 {
@@ -33,6 +34,16 @@ namespace Gameplay.Player
         private void OnTriggerEnter2D(Collider2D other)
         {
             OnTriggerEnter?.Invoke(other);
+        }
+
+        internal void ShrinkPlayer(Action onComplete)
+        {
+            animator.
+            transform.DOScale(new Vector3(0.75f, 0.75f, 1f), 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                transform.DOScale(new Vector3(1,1,1), 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+                onComplete?.Invoke());
+            });
         }
     }
 }

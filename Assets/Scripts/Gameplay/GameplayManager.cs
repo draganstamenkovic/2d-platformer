@@ -33,27 +33,27 @@ namespace Gameplay
         public async void Initialize()
         {
             _messageBroker.Publish(new LoadingMessage("Loading player...", true));
-            await Awaitable.WaitForSecondsAsync(0.3f);
+            await Awaitable.WaitForSecondsAsync(0.1f);
             _playerController.Initialize();
             
             _messageBroker.Publish(new LoadingMessage("Loading camera...", true));
-            await Awaitable.WaitForSecondsAsync(0.3f);
+            await Awaitable.WaitForSecondsAsync(0.1f);
             _cameraManager.Initialize();
             
             _messageBroker.Publish(new LoadingMessage("Loading data...", true));
-            await Awaitable.WaitForSecondsAsync(0.3f);
+            await Awaitable.WaitForSecondsAsync(0.1f);
             _loadManager.Initialize();
             
             _messageBroker.Publish(new LoadingMessage("Loading controls...", true));
-            await Awaitable.WaitForSecondsAsync(0.3f);
+            await Awaitable.WaitForSecondsAsync(0.1f);
             _inputManager.Initialize(_playerController);
             
             _messageBroker.Publish(new LoadingMessage("Loading levels...", true));
-            await Awaitable.WaitForSecondsAsync(0.3f);
+            await Awaitable.WaitForSecondsAsync(0.1f);
             _levelManager.Initialize();
             
             _messageBroker.Publish(new LoadingMessage("Loading backgrounds...", true));
-            await Awaitable.WaitForSecondsAsync(0.3f);
+            await Awaitable.WaitForSecondsAsync(0.1f);
             _backgroundManager.Initialize();
             SubscribeToEvents();
             
@@ -76,8 +76,7 @@ namespace Gameplay
             }));
             _disposableMessages.Add(_messageBroker.Receive<GameOverMessage>().Subscribe(message =>
             {
-                Debug.Log("Game over!");
-                Stop();
+                _inputManager.SetActive(false);
             }));
         }
 
@@ -111,6 +110,7 @@ namespace Gameplay
                 Time.timeScale = 1f;
                 _isPaused = false;
             }
+            
             _playerController.SetActive(false);
             _inputManager.SetActive(false);
         }
