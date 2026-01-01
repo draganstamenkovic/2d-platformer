@@ -32,13 +32,13 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     [SerializeField] private bool snapY = false;
 
     [SerializeField] protected RectTransform background = null;
-    [SerializeField] private RectTransform handle = null;
+    public RectTransform handle;
     private RectTransform baseRect = null;
 
     private Canvas canvas;
     private Camera cam;
 
-    private Vector2 input = Vector2.zero;
+    public Vector2 input = Vector2.zero;
 
     protected virtual void Start()
     {
@@ -50,7 +50,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             Debug.LogError("The Joystick is not placed inside a canvas");
 
         Vector2 center = new Vector2(0.5f, 0.5f);
-        //background.pivot = center;
+        background.pivot = center;
         handle.anchorMin = center;
         handle.anchorMax = center;
         handle.pivot = center;

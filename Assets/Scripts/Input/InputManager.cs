@@ -41,6 +41,8 @@ namespace Input
 #if UNITY_ANDROID || UNITY_IOS
                 jumpButton.gameObject.SetActive(true);
                 joystick.gameObject.SetActive(true);
+                joystick.handle.anchoredPosition = Vector2.zero;
+                joystick.input = Vector2.zero;
 #endif
                 _jumpAction.started += OnJumpStarted;
                 _jumpAction.canceled += OnJumpCanceled;
