@@ -6,5 +6,6 @@ namespace Gui.Screens
         public const string LoadingScreen = "LoadingScreen";
         public const string SettingsScreen = "SettingsScreen";
         public const string PlayScreen = "PlayScreen";
+        public const string LevelSelectScreen = "LevelSelectScreen";
     }
 }
