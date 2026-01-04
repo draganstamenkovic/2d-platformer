@@ -184,20 +184,13 @@ namespace Gameplay.Player
 
         private void Die()
         {
-            try
+            _messageBroker.Publish(new PlaySfxMessage(AudioIds.PlayerDied));
+            _messageBroker.Publish(new GameOverMessage());
+            _playerView.animator.Play(AnimationIds.Dead);
+            _playerView.ShrinkPlayer(() =>
             {
-                _messageBroker.Publish(new PlaySfxMessage(AudioIds.PlayerDied));
-                _messageBroker.Publish(new GameOverMessage());
-                _playerView.animator.Play(AnimationIds.Dead);
-                _playerView.ShrinkPlayer(() =>
-                {
-                    _messageBroker.Publish(new ShowPopupMessage(PopupIds.GameOverPopup));
-                });
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-            }
+                _messageBroker.Publish(new ShowPopupMessage(PopupIds.GameOverPopup));
+            });
         }
     }
 }

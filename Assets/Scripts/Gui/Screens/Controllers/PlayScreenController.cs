@@ -27,11 +27,7 @@ namespace Gui.Screens.Controllers
 
         public void Initialize(IScreenManager screenManager)
         {
-            _view.OnShow = () => 
-            { 
-                _messageBroker.Publish(new PlayGameMessage());
-                RegisterListeners();
-            };
+            _view.OnShow = RegisterListeners;
             _view.OnHidden = RemoveListeners;
         }
 
