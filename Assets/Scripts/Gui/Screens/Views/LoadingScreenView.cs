@@ -1,5 +1,6 @@
 using System;
 using Configs;
+using TMPro;
 using UnityEngine;
 using VContainer;
 
@@ -7,7 +8,8 @@ namespace Gui.Screens.Views
 {
     public class LoadingScreenView : ScreenView
     {
-        [SerializeField] private Transform loadingBar;
+        public Transform loadingBar;
+        public TextMeshProUGUI progressText;
         [Inject] private GuiConfig _guiConfig;
         public override void Initialize()
         {

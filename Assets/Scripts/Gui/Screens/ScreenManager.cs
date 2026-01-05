@@ -48,8 +48,9 @@ namespace Gui.Screens
             }
             _disposableMessage = _messageBroker.Receive<ShowScreenMessage>().Subscribe(message =>
             {
-                ShowScreen(GuiScreenIds.MainMenuScreen);
+                ShowScreen(message.Id);
             });
+            ShowScreen(GuiScreenIds.LoadingScreen);
         }
 
         public void ShowScreen(string screenName)
@@ -57,7 +58,7 @@ namespace Gui.Screens
             _screenBlocker.SetActive(true);
             if (!string.IsNullOrEmpty(_currentScreen))
             { 
-                HideScreen(_currentScreen);
+                HideActiveScreen();
             }
 
             _currentScreen = screenName;
@@ -66,7 +67,6 @@ namespace Gui.Screens
             var view = screen.GetComponent<IScreenView>();
 
             view.OnShow?.Invoke();
-
             MoveScreen(screen, TransitionDirection.Center, () => 
             {
                 view.OnShown?.Invoke();
@@ -74,11 +74,11 @@ namespace Gui.Screens
             });
         }
 
-        public void HideScreen(string screenName)
+        public void HideActiveScreen()
         {
-            if (!_spawnedScreens.TryGetValue(screenName, out var screen))
+            if (!_spawnedScreens.TryGetValue(_currentScreen, out var screen))
             {
-                Debug.LogWarning($"Trying to hide unspawned screen: {screenName}");
+                Debug.LogWarning($"Trying to hide unspawned screen: {_currentScreen}");
                 return;
             }
 
@@ -96,6 +96,7 @@ namespace Gui.Screens
         {
             if (_spawnedScreens.TryGetValue(screenName, out var spawnedScreen))
             {
+                spawnedScreen.DOKill();
                 spawnedScreen.gameObject.SetActive(true);
                 return spawnedScreen;
             }

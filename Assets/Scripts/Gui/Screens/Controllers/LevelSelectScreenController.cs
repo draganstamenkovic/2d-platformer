@@ -36,13 +36,11 @@ namespace Gui.Screens.Controllers
 
         private void OnBackButtonClicked()
         {
-            _screenManager.HideScreen(ID);
             _screenManager.ShowScreen(GuiScreenIds.MainMenuScreen);
         }
 
         private void OnLevelButtonClicked(int levelIndex)
         {
-            _screenManager.HideScreen(ID);
             _screenManager.ShowScreen(GuiScreenIds.PlayScreen);
             _messageBroker.Publish(new SelectedLevelMessage(levelIndex));
             _messageBroker.Publish(new PlayGameMessage());

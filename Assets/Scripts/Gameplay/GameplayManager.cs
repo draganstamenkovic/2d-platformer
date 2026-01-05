@@ -32,32 +32,32 @@ namespace Gameplay
         
         public async void Initialize()
         {
-            _messageBroker.Publish(new LoadingMessage("Loading player...", true));
+            _messageBroker.Publish(new LoadingMessage("Loading player..."));
             await Awaitable.WaitForSecondsAsync(0.1f);
             _playerController.Initialize();
             
-            _messageBroker.Publish(new LoadingMessage("Loading camera...", true));
+            _messageBroker.Publish(new LoadingMessage("Loading camera..."));
             await Awaitable.WaitForSecondsAsync(0.1f);
             _cameraManager.Initialize();
             
-            _messageBroker.Publish(new LoadingMessage("Loading data...", true));
+            _messageBroker.Publish(new LoadingMessage("Loading data..."));
             await Awaitable.WaitForSecondsAsync(0.1f);
             _loadManager.Initialize();
             
-            _messageBroker.Publish(new LoadingMessage("Loading controls...", true));
+            _messageBroker.Publish(new LoadingMessage("Loading controls..."));
             await Awaitable.WaitForSecondsAsync(0.1f);
             _inputManager.Initialize(_playerController);
             
-            _messageBroker.Publish(new LoadingMessage("Loading levels...", true));
+            _messageBroker.Publish(new LoadingMessage("Loading levels..."));
             await Awaitable.WaitForSecondsAsync(0.1f);
             _levelManager.Initialize();
             
-            _messageBroker.Publish(new LoadingMessage("Loading backgrounds...", true));
+            _messageBroker.Publish(new LoadingMessage("Loading backgrounds..."));
             await Awaitable.WaitForSecondsAsync(0.1f);
             _backgroundManager.Initialize();
             SubscribeToEvents();
             
-            _messageBroker.Publish(new LoadingMessage(string.Empty, false));
+          //  _messageBroker.Publish(new LoadingMessage(string.Empty));
             _messageBroker.Publish(new ShowScreenMessage(GuiScreenIds.MainMenuScreen));
         }
 
@@ -83,6 +83,7 @@ namespace Gameplay
         public async void Play()
         {
             await _levelManager.LoadLevel();
+            _scoreManager.ResetScore();
             _playerController.SetActive(true);
             _inputManager.SetActive(true);
             _cameraManager.FollowPlayer(_playerController.GetTransform());
@@ -115,11 +116,6 @@ namespace Gameplay
             _inputManager.SetActive(false);
             _levelManager.DestroyActiveLevel();
             _playerController.SetActive(false);
-        }
-
-        public void Restart()
-        {
-            Debug.Log("Restart");
         }
 
         public void Quit()

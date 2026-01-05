@@ -6,6 +6,6 @@ namespace Gui.Screens
     {
         void Initialize(Transform parent, GameObject screenBlocker);
         void ShowScreen(string screenName);
-        void HideScreen(string screenName);
+        void HideActiveScreen();
     }
 }
