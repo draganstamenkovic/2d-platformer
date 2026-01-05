@@ -30,5 +30,11 @@ namespace Gameplay
         {
             return _gemCount;
         }
+
+        public void ResetScore()
+        {
+            _cherryCount = 0;
+            _gemCount = 0;
+        }
     }
 }

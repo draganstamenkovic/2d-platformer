@@ -2,7 +2,6 @@ using Gui.Popups.Views;
 using Gui.Screens;
 using Message;
 using Message.Messages;
-using UnityEngine;
 using VContainer;
 
 namespace Gui.Popups.Controllers
@@ -53,12 +52,12 @@ namespace Gui.Popups.Controllers
 
         private void OnRestartButtonClicked()
         {
-            Debug.Log("Restart button clicked");
             _popupManager.HidePopup(ID);
-            _messageBroker.Publish(new LoadingMessage("Loading...", true));
+            _messageBroker.Publish(new ShowScreenMessage(GuiScreenIds.LoadingScreen));
+            _messageBroker.Publish(new LoadingMessage("Reloading level..."));
             _messageBroker.Publish(new GameOverMessage());
             _messageBroker.Publish(new PlayGameMessage());
-            _messageBroker.Publish(new LoadingMessage("Loading...", false));
+            _messageBroker.Publish(new ShowScreenMessage(GuiScreenIds.PlayScreen));
         }
     }
 }

@@ -6,5 +6,6 @@ namespace Gameplay
         int GetCherryCount();
         void IncreaseGemCount();
         int GetGemCount();
+        void ResetScore();
     }
 }

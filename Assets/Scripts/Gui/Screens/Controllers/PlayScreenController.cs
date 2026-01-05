@@ -7,6 +7,7 @@ using Gui.Screens.Views;
 using Message;
 using Message.Messages;
 using R3;
+using UnityEngine;
 using VContainer;
 
 namespace Gui.Screens.Controllers
@@ -28,7 +29,14 @@ namespace Gui.Screens.Controllers
         public void Initialize(IScreenManager screenManager)
         {
             _view.OnShow = RegisterListeners;
-            _view.OnHidden = RemoveListeners;
+            _view.OnHide = OnHideScreen;
+        }
+
+        private void OnHideScreen()
+        {
+            _view.cherriesCountText.text = "x 0";
+            _view.gemsCountText.text = "x 0";
+            RemoveListeners();
         }
 
         private void RegisterListeners()

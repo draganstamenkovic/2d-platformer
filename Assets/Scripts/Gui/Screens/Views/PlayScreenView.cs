@@ -1,4 +1,3 @@
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +15,5 @@ namespace Gui.Screens.Views
         {
             ID = GuiScreenIds.PlayScreen;
         }
-
-        public void UpdateScore(int gems, int cherries)
-        {
-            gemsCountText.text = gems.ToString();
-            cherriesCountText.text = cherries.ToString();
-        }
-        
     }
 }
