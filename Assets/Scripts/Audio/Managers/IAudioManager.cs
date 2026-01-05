@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Audio.Managers
 {
     public interface IAudioManager
@@ -7,5 +9,7 @@ namespace Audio.Managers
         void PlayBackgroundMusic();
         void StopBackgroundMusic();
         void PauseBackgroundMusic();
+        AudioSource BackgroundMusicSource();
+        AudioSource SfxSource();
     }
 }

@@ -13,8 +13,12 @@ namespace Audio.Managers
         [Inject] private IMessageBroker _messageBroker;
         private AudioSource _backgroundMusicSource;
         private AudioSource _sfxSource;
+        
+        public AudioSource BackgroundMusicSource() => _backgroundMusicSource;
+        public AudioSource SfxSource() => _sfxSource;
         public void Initialize()
         {
+            _messageBroker.Publish(new LoadingMessage("Loading audio..."));
             var audioManager = new GameObject("_AudioManager_");
             var backgroundMusicObject = new GameObject("BackgroundMusic");
             var sfxSourceObject = new GameObject("SfxSource");
@@ -40,7 +44,6 @@ namespace Audio.Managers
             {
                 PlaySfx(message.Id);
             });
-            _messageBroker.Publish(new LoadingMessage("Loading audio..."));
         }
 
         public void PlaySfx(string sfxId)
