@@ -159,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1899600467902722762, guid: 0082e3865967e52449321de3884075c9, type: 3}
       propertyPath: m_text
-      value: "Squirrel \n          world"
+      value: Fox world
       objectReference: {fileID: 0}
     - target: {fileID: 1899600467902722762, guid: 0082e3865967e52449321de3884075c9, type: 3}
       propertyPath: m_fontSize
