@@ -16,11 +16,14 @@ MonoBehaviour:
   m_GUID: 92d3423da678a3344bef8dcf652fe8ad
   m_SerializeEntries:
   - m_GUID: 1e38b7607b9aa04459f6a5fdb541c998
-    m_Address: Assets/Prefabs/Gameplay/Levels/LevelOne.prefab
+    m_Address: LevelOne
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4075b5cab21992a46b68ef7f2bf1b506, type: 2}
   m_SchemaSet:
-    m_Schemas: []
+    m_Schemas:
+    - {fileID: 11400000, guid: a78fef58fc025b04cb3c5b217923e868, type: 2}
+    - {fileID: 11400000, guid: 87a6745a47159bb4b886a46fdc1bea69, type: 2}
+    - {fileID: 11400000, guid: 33d8dd9ba1091474ea8fc1c498b3d59f, type: 2}
