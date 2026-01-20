@@ -6,7 +6,7 @@ namespace Gameplay.Collectables
     {
         private void Start()
         {
-            itemType = CollectedItem.Cherry;
+            itemType = CollectableType.Cherry;
         }
     }
 }

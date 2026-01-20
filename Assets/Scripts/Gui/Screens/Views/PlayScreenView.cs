@@ -6,6 +6,7 @@ namespace Gui.Screens.Views
 {
     public class PlayScreenView : ScreenView
     {
+        public RectTransform screenRectTransform;
         public Button pauseButton;
         public TextMeshProUGUI gemsCountText;
         public TextMeshProUGUI cherriesCountText;

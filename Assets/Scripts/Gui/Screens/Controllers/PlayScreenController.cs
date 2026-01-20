@@ -1,5 +1,6 @@
 using System;
 using Cameras;
+using DG.Tweening;
 using Gameplay;
 using Gameplay.Collectables;
 using Gui.Popups;
@@ -9,6 +10,7 @@ using Message.Messages;
 using R3;
 using UnityEngine;
 using VContainer;
+using Object = UnityEngine.Object;
 
 namespace Gui.Screens.Controllers
 {
@@ -43,7 +45,7 @@ namespace Gui.Screens.Controllers
         {
             _onCollectedItemSubscription = _messageBroker.Receive<CollectedItemMessage>().Subscribe(message =>
             {
-                MoveCollectable(message.Collectable);
+                SpawnCollectableImage(message.Collectable);
             });
             _view.pauseButton.onClick.AddListener(OnPauseButtonClick);
         }
@@ -60,27 +62,51 @@ namespace Gui.Screens.Controllers
             _messageBroker.Publish(new PauseGameMessage(true));
         }
 
-        private void MoveCollectable(CollectableItem collectable)
+        private void SpawnCollectableImage(CollectableItem collectable)
         {
-            switch (collectable.itemType)
+            var screenPos = _cameraManager.GetMainCamera().WorldToScreenPoint(collectable.Position);
+            RectTransform itemToInstantiate;
+            RectTransform parentRect;
+            Vector2 targetLocalPos;
+            CollectableType collectableType = collectable.itemType;
+            collectable.OnCollected();
+            if (collectableType == CollectableType.Cherry)
             {
-                case CollectedItem.Cherry:
-                    collectable.OnCollected(_cameraManager.GetMainCamera(),
-                        _view.cherriesRectTransform.position, () =>
-                        {
-                            _scoreManager.IncreaseCherryCount();
-                            _view.cherriesCountText.text = "x " + _scoreManager.GetCherryCount();
-                        });
-                    break;
-                case CollectedItem.Gem:
-                    collectable.OnCollected(_cameraManager.GetMainCamera(),
-                        _view.gemsRectTransform.position, () =>
-                        {
-                            _scoreManager.IncreaseGemCount();
-                            _view.gemsCountText.text = "x " + _scoreManager.GetGemCount();
-                        });
-                    break;
+                itemToInstantiate = _view.cherriesRectTransform;
+                parentRect = _view.cherriesRectTransform.parent as RectTransform;
+                targetLocalPos = parentRect.InverseTransformPoint(_view.cherriesRectTransform.position);
+                _scoreManager.IncreaseCherryCount();
             }
+            else
+            {
+                itemToInstantiate = _view.gemsRectTransform;
+                parentRect = _view.gemsRectTransform.parent as RectTransform;
+                targetLocalPos  = parentRect.InverseTransformPoint(_view.gemsRectTransform.position);
+                _scoreManager.IncreaseGemCount();
+            }
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRect,
+                screenPos,
+                null,
+                out var localPoint
+            );
+
+            var itemInstance = Object.Instantiate(itemToInstantiate, parentRect);
+
+            var itemRect = (RectTransform)itemInstance.transform;
+            itemRect.anchoredPosition = localPoint;
+            
+            itemRect.DOAnchorPos(targetLocalPos, 0.5f)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() =>
+                {
+                    if(collectableType == CollectableType.Cherry)
+                        _view.cherriesCountText.text = "x " + _scoreManager.GetCherryCount();
+                    else
+                        _view.gemsCountText.text = "x " + _scoreManager.GetGemCount();
+                });
         }
+
     }
 }
