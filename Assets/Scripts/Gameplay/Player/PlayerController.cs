@@ -75,13 +75,12 @@ namespace Gameplay.Player
         public void Jump()
         {
             if (!_isGrounded) return;
+            _isGrounded = false;
+            _isJumping = true;
             
             _playerView.animator.SetBool(AnimationIds.Jump, true);
             _playerView.animator.SetBool(AnimationIds.Run, false);
             _playerView.animator.SetBool(AnimationIds.Idle, false);
-            
-            _isGrounded = false;
-            _isJumping = true;
 
             _playerView.rigidBody.AddForce(new Vector2(0, _playerConfig.jumpForce), ForceMode2D.Force);
         }
@@ -123,6 +122,7 @@ namespace Gameplay.Player
                 if (Time.time > _lastParticleTime + 0.2f)
                 {
                     _playerView.animator.SetBool(AnimationIds.Jump, false);
+                    _playerView.animator.SetBool(AnimationIds.Idle, true);
                     _landParticle.transform.position = _playerView.dustParticleTransform.position;
                     _landParticle.Play();
                     _lastParticleTime = Time.time;
